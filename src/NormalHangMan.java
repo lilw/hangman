@@ -63,22 +63,25 @@ public boolean isWin()
     {
         return LetterGuessHistory;
     }
-    
+    */
     public String displayGameState()
     {
         return CurrentState;
     }
-    */
+    
     public boolean makeGuess(char ch)
     {
     	if (Character.isLetter(ch) == false) return false;
         boolean tempB = true;
         LetterGuess = ch;
         int i;
+        System.out.println(OriginSecretWord + " " + ch);
         for(i = 0; i < OriginSecretWord.length(); i++)
         {
+        	System.out.println("in make guess normal for");
             if(OriginSecretWord.charAt(i) == ch)//if the user guess right, adjust the current state.
             {
+            	System.out.println("in make guess normal in if");
                 String temp = "";
                 for(int j = 0; j < OriginSecretWord.length(); j++)
                 {
@@ -92,6 +95,8 @@ public boolean isWin()
                     }
                 }
                 CurrentState = temp;
+                System.out.println("temp state: "+temp);
+                System.out.println("current state state: " +CurrentState);
                 tempB = true;
                 break;
             }

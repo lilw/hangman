@@ -80,7 +80,10 @@ public class GUI_PlayGame implements ActionListener
         temp.setEnabled(false);
         InputLetter = temp.getText().charAt(0);
         check(InputLetter); // make sure it's a valid choice
-        game.controller(InputLetter, IsEvil, result, label2, label3, frame);
+        game=game.controller(InputLetter, IsEvil, result, label2, label3, frame, game);
+        if(game instanceof NormalHangMan)
+        	IsEvil=false;
+        
     }
 
     

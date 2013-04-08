@@ -40,7 +40,7 @@ public abstract class HangmanGame
     /*
      * This handles the logic of sending info to the Game object.
      */
-    public void controller(char InputLetter, boolean IsEvil, JLabel result, JLabel label2, JLabel label3, JFrame frame)
+    public HangmanGame controller(char InputLetter, boolean IsEvil, JLabel result, JLabel label2, JLabel label3, JFrame frame, HangmanGame game)
     {
         //handle the user choice, and pass the data to the model
         char nextLetter = Character.toUpperCase(InputLetter);
@@ -57,13 +57,16 @@ public abstract class HangmanGame
                 //System.out.println(getSecretWord());
                 int GuessRemaining = numGuessesRemaining();
                 String LetterHistory = lettersGuessed();
-                new NormalHangMan(RealSecretString, GuessRemaining,LetterHistory);//turn the evil to regular hangman
+                //LetterHistory+=nextLetter;
+                game=new NormalHangMan(RealSecretString, GuessRemaining,LetterHistory);//turn the evil to regular hangman
                 IsEvil = false;
-                makeGuess(nextLetter);//re-value the user guess when turn to the regular hangman for the first time
+                game.makeGuess(nextLetter);//re-value the user guess when turn to the regular hangman for the first time
+                
             }
             else
             {
                 result.setText("Yes!");
+                System.out.println("Yes nothing else");
             }
         }
         else
@@ -71,8 +74,8 @@ public abstract class HangmanGame
             result.setText("Nope!");
         }
 
-        label2.setText("Secret Word: "+ displayGameState());
-        label3.setText(String.valueOf("Guesses Remaining: "+numGuessesRemaining()));
+        label2.setText("Secret Word: "+ game.displayGameState());
+        label3.setText(String.valueOf("Guesses Remaining: "+game.numGuessesRemaining()));
         if(gameOver())
         {
             if(isWin())
@@ -84,6 +87,7 @@ public abstract class HangmanGame
                 new GUI_Loser(getSecretWord(),frame);
             }
         }
+        return game;
     }
     
     /**
@@ -128,6 +132,7 @@ public abstract class HangmanGame
      * @return a String of the current state of the secret word.
      */
     public String displayGameState() {
+    	System.out.println("displayGameState called");
 		return CurrentState;
 	}
     

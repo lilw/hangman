@@ -146,7 +146,6 @@ public class EvilHangMan extends HangmanGame {
 				for (int j = 0; j < secretStringLength; j++) {
 					if (Wordlist.get(i).charAt(j) == ch) {
 						if (!remove.contains(Wordlist.get(i))) remove.add(Wordlist.get(i));
-						break;
 					}/* else {
 						if (j == secretStringLength - 1) {
 							if (Wordlist.get(i).charAt(j) != ch) {
