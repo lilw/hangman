@@ -26,37 +26,48 @@ public class GUI_PlayGame implements ActionListener
      * opens a new window.
      */
     public void show() {
-
-    	frame = new JFrame("Evil Hangman");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(new Dimension(360,370));
-        frame.setLayout(new FlowLayout());
-        frame.setResizable(false);
-        
-        label1 = new JLabel("Let's play Evil Hangman!");
-        
-        label2 = new JLabel("Secret Word: "+game.displayGameState());
-        label2.setFont(new Font("Default",Font.PLAIN,23));
-       
-        label3 = new JLabel(String.valueOf("Guesses Remaining: "+ game.numGuessesRemaining() +"\n"));
-        result = new JLabel("");
-        result.setForeground(Color.red);
-        
+    	
+    	initializeFrame();
+        createLabels();
         
         //this generates an image
         ImageIcon icon = new ImageIcon("blank.gif"); 
         JLabel hangmanPic = new JLabel(icon);
 
-        frame.add(label1);
-        frame.add(label2);
-        frame.add(label3);
-
-
-        frame.add(result);
+       addLabels();
+       frame.add(hangmanPic);
+        addButtons();
         
-        frame.add(hangmanPic);
-        
-        //add user choice
+        frame.setResizable(false);
+        frame.setVisible(true);
+    }
+    public void initializeFrame()
+    {
+    	frame = new JFrame("Evil Hangman");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(new Dimension(360,370));
+        frame.setLayout(new FlowLayout());
+        frame.setResizable(false);
+    }
+    public void createLabels()
+    {
+    	label1 = new JLabel("Let's play Evil Hangman!");
+        label2 = new JLabel("Secret Word: "+game.displayGameState());
+        label2.setFont(new Font("Default",Font.PLAIN,23));
+        label3 = new JLabel(String.valueOf("Guesses Remaining: "+ game.numGuessesRemaining() +"\n"));
+        result = new JLabel("");
+        result.setForeground(Color.red);
+    }
+    public void addLabels()
+    {
+    	 frame.add(label1);
+         frame.add(label2);
+         frame.add(label3);
+         frame.add(result);
+    }
+    public void addButtons()
+    {
+    	 //add user choice
         for(int i = 65; i<91;i++)
         {
             char x = (char)i;
@@ -65,11 +76,7 @@ public class GUI_PlayGame implements ActionListener
             frame.add(tempBtn);
             
         }
-        
-        frame.setResizable(false);
-        frame.setVisible(true);
     }
-    
     /*
      * This is called when the user clicks any of the buttons in the UI.
      */
