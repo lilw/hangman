@@ -54,7 +54,7 @@ public abstract class HangmanGame
                 result.setText("Yes!");
                 String RealSecretString = getSecretWord();
                 int GuessRemaining = numGuessesRemaining();
-                String LetterHistory = lettersGuessed();
+                ArrayList<String> LetterHistory = lettersGuessed();
                 game=new NormalHangMan(RealSecretString, GuessRemaining,LetterHistory);//turn the evil to regular hangman
                 game.makeGuess(nextLetter);//re-value the user guess when turn to the regular hangman for the first time
                 
@@ -140,12 +140,9 @@ public abstract class HangmanGame
      * Duplicates should not be added.
      * @return a String showing which letters have already been guessed.
      */
-    public String lettersGuessed() {
-    	String letters = "";
-    	for (int i = 0; i < LetterGuessHistory.size(); i ++) {
-    		letters += LetterGuessHistory.get(i);
-    	}
-    	return letters;
+    public ArrayList<String> lettersGuessed() {
+ 
+    	return LetterGuessHistory;
 	}
 
 	public boolean RepeatInput(char c) {

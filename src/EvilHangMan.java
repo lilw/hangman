@@ -11,7 +11,7 @@ public class EvilHangMan extends HangmanGame {
 	
 	//private String[] Wordlist = new String[235000];// to store the dictionary
 	private ArrayList<String> Wordlist = new ArrayList<String>();
-	private int numWords = 0;// count the number of possible secret words.
+
 	private int secretStringLength;// the length of the secret string
 	//private boolean GuessResult = false;
 
@@ -41,8 +41,7 @@ public class EvilHangMan extends HangmanGame {
 			String currWord = Scanner.nextLine().toUpperCase();
 			if (currWord.length() == secretStringLength) {
 				Wordlist.add(currWord);
-				//i++;
-				numWords++;
+
 			}
 		}
 		Scanner.close();
@@ -86,7 +85,6 @@ public class EvilHangMan extends HangmanGame {
 			GuessResult = true;
 		} else {
 			secretWord = Wordlist.get(0);
-			//numWords = tempWordNum;
 			GuessRemainingNum--;
 			GuessResult = false;
 		}

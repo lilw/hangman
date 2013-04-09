@@ -1,6 +1,8 @@
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,10 +11,10 @@ public class NormalHangmanTest {
 	
 	private HangmanGame hm;
 	private final String WORD = "SPONGEBOB";
-
+	
 	@Before
 	public void setUp() throws Exception {
-		hm = new NormalHangMan(WORD, 8, "");
+		hm = new NormalHangMan(WORD, 8, new ArrayList<String>());
 	}
 	
 	@Test
@@ -22,7 +24,11 @@ public class NormalHangmanTest {
 		assertEquals(8, hm.numGuessesRemaining());
 		assertEquals(7, hm.numLettersRemaining()); // because the word has 7 distinct letters
 		assertEquals("_ _ _ _ _ _ _ _ _ ", hm.displayGameState());
-		assertEquals("", hm.lettersGuessed());
+		String game = "";
+		for (String s: hm.lettersGuessed()) {
+			game += s;
+		}
+		assertEquals("", game);
 		assertFalse(hm.gameOver());
 	}
 
@@ -35,7 +41,11 @@ public class NormalHangmanTest {
 		assertEquals(8, hm.numGuessesRemaining());
 		assertEquals(6, hm.numLettersRemaining());
 		assertEquals("S _ _ _ _ _ _ _ _ ", hm.displayGameState());
-		assertEquals("S", hm.lettersGuessed());
+		String game = "";
+		for (String s: hm.lettersGuessed()) {
+			game += s;
+		}
+		assertEquals("S", game);
 		assertFalse(hm.gameOver());
 	}
 	
@@ -48,7 +58,12 @@ public class NormalHangmanTest {
 		assertEquals(8, hm.numGuessesRemaining());
 		assertEquals(6, hm.numLettersRemaining());
 		assertEquals("_ _ O _ _ _ _ O _ ", hm.displayGameState());
-		assertEquals("O", hm.lettersGuessed());
+		
+		String game = "";
+		for (String s: hm.lettersGuessed()) {
+			game += s;
+		}
+		assertEquals("O", game);
 		assertFalse(hm.gameOver());
 	}
 
@@ -63,7 +78,11 @@ public class NormalHangmanTest {
 		assertEquals(8, hm.numGuessesRemaining());
 		assertEquals(5, hm.numLettersRemaining());
 		assertEquals("S P _ _ _ _ _ _ _ ", hm.displayGameState());
-		assertEquals("SP", hm.lettersGuessed());
+		String game = "";
+		for (String s: hm.lettersGuessed()) {
+			game += s;
+		}
+		assertEquals("SP", game);
 		assertFalse(hm.gameOver());
 	}
 	
@@ -76,7 +95,12 @@ public class NormalHangmanTest {
 		assertEquals(7, hm.numGuessesRemaining());
 		assertEquals(7, hm.numLettersRemaining());
 		assertEquals("_ _ _ _ _ _ _ _ _ ", hm.displayGameState());
-		assertEquals("K", hm.lettersGuessed());
+		String game = "";
+		for (String s: hm.lettersGuessed()) {
+			game += s;
+		}
+		assertEquals("K", game);
+		
 		assertFalse(hm.gameOver());
 	}
 	
@@ -91,7 +115,11 @@ public class NormalHangmanTest {
 		assertEquals(6, hm.numGuessesRemaining());
 		assertEquals(7, hm.numLettersRemaining());
 		assertEquals("_ _ _ _ _ _ _ _ _ ", hm.displayGameState());
-		assertEquals("KT", hm.lettersGuessed());
+		String game = "";
+		for (String s: hm.lettersGuessed()) {
+			game += s;
+		}
+		assertEquals("KT", game);
 		assertFalse(hm.gameOver());
 	}
 	
@@ -110,7 +138,11 @@ public class NormalHangmanTest {
 		assertEquals(6, hm.numGuessesRemaining());
 		assertEquals(5, hm.numLettersRemaining());
 		assertEquals("S P _ _ _ _ _ _ _ ", hm.displayGameState());
-		assertEquals("STPK", hm.lettersGuessed());
+		String game = "";
+		for (String s: hm.lettersGuessed()) {
+			game += s;
+		}
+		assertEquals("STPK", game);
 		assertFalse(hm.gameOver());
 	}
 	
@@ -120,7 +152,11 @@ public class NormalHangmanTest {
 		assertFalse(correct);
 		assertEquals(8, hm.numGuessesRemaining());
 		assertEquals("_ _ _ _ _ _ _ _ _ ", hm.displayGameState());
-		assertEquals("", hm.lettersGuessed());
+		String game = "";
+		for (String s: hm.lettersGuessed()) {
+			game += s;
+		}
+		assertEquals("", game);
 		assertFalse(hm.gameOver());
 	}
 
@@ -133,7 +169,11 @@ public class NormalHangmanTest {
 		
 		assertEquals(8, hm.numGuessesRemaining());
 		assertEquals("S _ _ _ _ _ _ _ _ ", hm.displayGameState());
-		assertEquals("S", hm.lettersGuessed());
+		String game = "";
+		for (String s: hm.lettersGuessed()) {
+			game += s;
+		}
+		assertEquals("S", game);
 		assertFalse(hm.gameOver());
 	}
 
