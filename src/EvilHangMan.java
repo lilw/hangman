@@ -13,13 +13,14 @@ public class EvilHangMan extends HangmanGame {
 	private ArrayList<String> Wordlist = new ArrayList<String>();
 	private int numWords = 0;// count the number of possible secret words.
 	private int secretStringLength;// the length of the secret string
-	private boolean GuessResult = false;
+	//private boolean GuessResult = false;
 
 	public EvilHangMan(int StringLength, int numGuesses) {
 		super();
 		GuessRemainingNum = numGuesses;
 		secretStringLength = StringLength;
 		LetterLeftNum = 26;
+		GuessResult=false;
 		Scanner Scanner = null;
 		try {
 			Scanner = new Scanner(new File("dictionary.txt"));// read the dictionary
@@ -134,7 +135,7 @@ public class EvilHangMan extends HangmanGame {
 	*/
 	public boolean makeGuess(char ch) {
 		GuessResult = false;
-		LetterGuess = ch;
+		//LetterGuess = ch;
 		if (Character.isLetter(ch) && !RepeatInput(ch)) {
 			// adjust the Wordlist in order to avoid the word with the letter
 			// user guessed
@@ -180,8 +181,8 @@ public class EvilHangMan extends HangmanGame {
 //			}
 			System.out.println(Wordlist.size() - remove.size());
 			if (Wordlist.size() - remove.size() <= 0) {
-
-			//	OriginSecretWord = Wordlist.get(0);
+				if(remove.size()>0)
+					OriginSecretWord = remove.get(0);
 				GuessResult = true;
 			} else {
 				OriginSecretWord = Wordlist.get(0);
@@ -190,10 +191,10 @@ public class EvilHangMan extends HangmanGame {
 				GuessResult = false;
 			}
 			if (!GuessResult) {
-				LetterGuessHistory.add("" + LetterGuess);
+				LetterGuessHistory.add("" + ch);
 			}
 
-		} else return false;
+		} else return GuessResult=false;
 		
 		return GuessResult;
 	}

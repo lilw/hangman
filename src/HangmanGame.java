@@ -11,8 +11,8 @@ public abstract class HangmanGame
 	protected int LetterLeftNum; //number of letters remaining 26 for evilHangman
 	protected String CurrentState = ""; // store the current guessing situation
 	protected ArrayList<String> LetterGuessHistory;// store the letters user has tried
-	protected char LetterGuess;// the letter the user guess right now
-	
+	//protected char LetterGuess;// the letter the user guess right now
+	protected boolean GuessResult;
 	public HangmanGame() {
 		LetterGuessHistory = new ArrayList<String>();
 	}
@@ -40,14 +40,14 @@ public abstract class HangmanGame
     /*
      * This handles the logic of sending info to the Game object.
      */
-    public HangmanGame controller(char InputLetter, boolean IsEvil, JLabel result, JLabel label2, JLabel label3, JFrame frame, HangmanGame game)
+    public HangmanGame controller(char InputLetter, JLabel result, JLabel label2, JLabel label3, JFrame frame, HangmanGame game)
     {
         //handle the user choice, and pass the data to the model
         char nextLetter = Character.toUpperCase(InputLetter);
 
         if(makeGuess(nextLetter))
         {
-            if(IsEvil)//judge whether the hangman is evil
+            if(game instanceof EvilHangMan)//judge whether the hangman is evil
             {
                 //if in the evil statement, and the user guess right, 
             	// it means it is the time to turn the evil to the regular hangmam
@@ -59,7 +59,7 @@ public abstract class HangmanGame
                 String LetterHistory = lettersGuessed();
                 //LetterHistory+=nextLetter;
                 game=new NormalHangMan(RealSecretString, GuessRemaining,LetterHistory);//turn the evil to regular hangman
-                IsEvil = false;
+                //IsEvil = false;
                 game.makeGuess(nextLetter);//re-value the user guess when turn to the regular hangman for the first time
                 
             }
@@ -106,7 +106,10 @@ public abstract class HangmanGame
         else
             return false;
 	} 
-    
+    public boolean getGuessResult()
+    {
+    	return GuessResult;
+    }
     /**
      * @return the number of guesses the player has left
      */
@@ -151,10 +154,11 @@ public abstract class HangmanGame
 
 	public boolean RepeatInput(char c) {
 		String character = c + "";
-		for (int i = 0; i < LetterGuessHistory.size(); i++) {
-			if (LetterGuessHistory.get(i).equals(character)) return true;
-		}
-		return false;
+//		for (int i = 0; i < LetterGuessHistory.size(); i++) {
+//			if (LetterGuessHistory.get(i).equals(character)) return true;
+//		}
+//		return false;
+		return LetterGuessHistory.contains(character);
 	}
 
 }

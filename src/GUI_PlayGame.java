@@ -11,7 +11,7 @@ public class GUI_PlayGame implements ActionListener
     JLabel label3;
     HangmanGame game;
     private char InputLetter;
-    private boolean IsEvil = true;
+    //private boolean IsEvil = true;
     JLabel result;
 
 
@@ -80,14 +80,18 @@ public class GUI_PlayGame implements ActionListener
         temp.setEnabled(false);
         InputLetter = temp.getText().charAt(0);
         check(InputLetter); // make sure it's a valid choice
-        game=game.controller(InputLetter, IsEvil, result, label2, label3, frame, game);
-        if(game instanceof NormalHangMan)
-        	IsEvil=false;
+        game=game.controller(InputLetter, result, label2, label3, frame, game);
         
     }
 
     
-  
+    public boolean isEvil()
+    {
+    	if(game instanceof EvilHangMan)
+    		return true;
+    	else 
+    		return false;
+    }
 
     public boolean check(char input)
     {

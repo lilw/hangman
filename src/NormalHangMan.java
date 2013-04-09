@@ -25,7 +25,8 @@ public class NormalHangMan extends HangmanGame
     	super();
         OriginSecretWord = secretWord;
         GuessRemainingNum = numGuesses;
-        LetterLeftNum = secretWord.length();   
+        LetterLeftNum = secretWord.length(); 
+        GuessResult=true;
         for(int i = 0; i < secretWord.length(); i++)
         {
             CurrentState += "_ ";
@@ -71,17 +72,15 @@ public boolean isWin()
     
     public boolean makeGuess(char ch)
     {
-    	if (Character.isLetter(ch) == false) return false;
-        boolean tempB = true;
-        LetterGuess = ch;
+    	if (Character.isLetter(ch) == false) return GuessResult=false;
+    	GuessResult=true;
+        //boolean tempB = true;
+        //LetterGuess = ch;
         int i;
-        System.out.println(OriginSecretWord + " " + ch);
         for(i = 0; i < OriginSecretWord.length(); i++)
         {
-        	System.out.println("in make guess normal for");
             if(OriginSecretWord.charAt(i) == ch)//if the user guess right, adjust the current state.
             {
-            	System.out.println("in make guess normal in if");
                 String temp = "";
                 for(int j = 0; j < OriginSecretWord.length(); j++)
                 {
@@ -97,19 +96,21 @@ public boolean isWin()
                 CurrentState = temp;
                 System.out.println("temp state: "+temp);
                 System.out.println("current state state: " +CurrentState);
-                tempB = true;
+                GuessResult=true;
+                // tempB = true;
                 break;
             }
             else
             {
-                tempB = false;
+               // tempB = false;
+            	GuessResult=false;
             }
         }
         if(!RepeatInput(ch))
         {
-            LetterGuessHistory.add(LetterGuess + "");
+            LetterGuessHistory.add(ch + "");
 
-            if(tempB)
+            if(GuessResult/*tempB*/)
             {
                 LetterLeftNum--;
             }
@@ -117,9 +118,9 @@ public boolean isWin()
             {
                 GuessRemainingNum--;
             }
-            return tempB;
+            return GuessResult /*tempB*/;
         }
-        else return false;
+        else return GuessResult=false;
     }
     
    

@@ -18,7 +18,7 @@ public class IsEvilTest {
 	public void guessTrue_isEvilTrue() {
 		GUI_PlayGame gui = new GUI_PlayGame(4, 4);
 		gui.show();
-		gui.game.controller('A', true, gui.result, gui.label2, gui.label3, gui.frame, gui.game);
+		gui.game.controller('A', gui.result, gui.label2, gui.label3, gui.frame, gui.game);
 	}
 
 }
