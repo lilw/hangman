@@ -19,7 +19,15 @@ public class GUI_Winner implements ActionListener
         parentFrame = frame;
         Congra = new JFrame("You are the winner!!!");
         bg(Congra);
-        Des = new JLabel("The answer is ");
+        
+        createContent(Letters);
+        addContent();
+        Congra.setVisible(true);
+
+    }
+    public void createContent(String Letters)
+    {
+    	Des = new JLabel("The answer is ");
         
         SecretWord = new JLabel(Letters);
         SecretWord.setFont(new Font("Default",Font.PLAIN,23));
@@ -28,16 +36,14 @@ public class GUI_Winner implements ActionListener
         ReturnBtn = new JButton("Return to the main menu");
 
         ReturnBtn.addActionListener(this); 
-        
-        Congra.add(Des);
+    }
+    public void addContent()
+    {
+    	Congra.add(Des);
         Congra.add(SecretWord);
         Congra.add(GameResult);
         Congra.add(ReturnBtn);
-
-        Congra.setVisible(true);
-
     }
-
     public void bg(JFrame frame)
     {
         background = new ImageIcon("Congrats.gif");
@@ -46,10 +52,7 @@ public class GUI_Winner implements ActionListener
         label.setBounds(0, 0, background.getIconWidth(),
             background.getIconHeight());
    
-        imagePanel = (JPanel) frame.getContentPane();
-        imagePanel.setOpaque(false);
-
-        imagePanel.setLayout(new FlowLayout());
+        initializeImPanel(frame);
 
         frame.getLayeredPane().setLayout(null);
 
@@ -57,7 +60,12 @@ public class GUI_Winner implements ActionListener
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(background.getIconWidth(), background.getIconHeight());
         frame.setResizable(false);
-
+    }
+    public void initializeImPanel(JFrame frame)
+    {
+    	imagePanel = (JPanel) frame.getContentPane();
+        imagePanel.setOpaque(false);
+        imagePanel.setLayout(new FlowLayout());
     }
 
     public void actionPerformed(ActionEvent e)

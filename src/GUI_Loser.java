@@ -16,29 +16,39 @@ public class GUI_Loser implements ActionListener
     {
        
         parentFrame = frame;
-        Frame = new JFrame("You are the loser!");
-        Frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Frame.setSize(new Dimension(300,470));
-        Frame.setLayout(new FlowLayout());
+        initializeFrame();
         
-        secretWordLabel = new JLabel("The answer is "+Letters+".");
-        gameResultLabel = new JLabel("You are the Loser!");
-        rtnBtn = new JButton("Return to the main menu");
-        
-        rtnBtn.addActionListener(this); 
+        createLabelsBtn(Letters);
         
         ImageIcon icon = new ImageIcon("loser.gif"); 
         JLabel loserPic = new JLabel(icon);
-
         
-        Frame.add(secretWordLabel);
-        Frame.add(gameResultLabel);
-        Frame.add(rtnBtn);
+        addLabels();
         Frame.add(loserPic);
         
         Frame.setVisible(true);
     }
-    
+    public void initializeFrame()
+    {
+    	Frame = new JFrame("You are the loser!");
+        Frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Frame.setSize(new Dimension(300,470));
+        Frame.setLayout(new FlowLayout());
+    }
+    public void createLabelsBtn(String Letters)
+    {
+    	secretWordLabel = new JLabel("The answer is "+Letters+".");
+        gameResultLabel = new JLabel("You are the Loser!");
+        rtnBtn = new JButton("Return to the main menu");
+        
+        rtnBtn.addActionListener(this); 
+    }
+    public void addLabels()
+    {
+    	 Frame.add(secretWordLabel);
+         Frame.add(gameResultLabel);
+         Frame.add(rtnBtn);
+    }
     public void actionPerformed(ActionEvent e)
     {
         Frame.dispose(); //close the window

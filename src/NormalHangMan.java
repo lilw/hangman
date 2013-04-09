@@ -18,31 +18,36 @@ public class NormalHangMan extends HangmanGame
      * <li>The number of guesses remaining
      * <li>The number of letters that still need to be guessed
      * <li>The current state of word to be guessed (e.g. "L A B _ R A _ _ R Y")
-     * @param secretWord the word that the player is trying to guess
+     * @param currSecretWord the word that the player is trying to guess
      * @param numGuesses the number of guesses allowed
      */
-    public NormalHangMan(String secretWord, int numGuesses, String LetterHistory){
+    public NormalHangMan(String currSecretWord, int numGuesses, String LetterHistory){
     	super();
-        OriginSecretWord = secretWord;
+        secretWord = currSecretWord;
         GuessRemainingNum = numGuesses;
         LetterLeftNum = secretWord.length(); 
         GuessResult=true;
         for(int i = 0; i < secretWord.length(); i++)
         {
             CurrentState += "_ ";
-            for(int j = i; j > 0; j--)
-            {
-                if(secretWord.charAt(i) == secretWord.charAt(j-1))
-                {
-                    LetterLeftNum--;//If the letter appears many times in the secret word, it will be counted just once.
-                    break;
-                }
-            }
+            searchWord(i);
+            
         }
         for (int i = 0; i < LetterHistory.length(); i++) {
         	LetterGuessHistory.add("" + LetterHistory.charAt(i));
         }
-    }   
+    } 
+    public void searchWord(int i)
+    {
+    	for(int j = i; j > 0; j--)
+        {
+            if(secretWord.charAt(i) == secretWord.charAt(j-1))
+            {
+                LetterLeftNum--;//If the letter appears many times in the secret word, it will be counted just once.
+                break;
+            }
+        }
+    }
 
 public boolean isWin()
     {
@@ -51,78 +56,69 @@ public boolean isWin()
         else
             return true;
     }
-/*
-    public boolean gameOver()
-    {
-        if(GuessRemainingNum == 0 || LetterLeftNum == 0)
-            return true;
-        else
-            return false;
-    }
-    
-    public String lettersGuessed()
-    {
-        return LetterGuessHistory;
-    }
-    */
     public String displayGameState()
     {
         return CurrentState;
     }
     
-    public boolean makeGuess(char ch)
+    public boolean makeGuess(char guessedChar)
     {
-    	if (Character.isLetter(ch) == false) return GuessResult=false;
+    	if (Character.isLetter(guessedChar) == false) 
+    		return GuessResult=false;
     	GuessResult=true;
         //boolean tempB = true;
         //LetterGuess = ch;
-        int i;
-        for(i = 0; i < OriginSecretWord.length(); i++)
+        for(int i = 0; i < secretWord.length(); i++)
         {
-            if(OriginSecretWord.charAt(i) == ch)//if the user guess right, adjust the current state.
+            if(secretWord.charAt(i) == guessedChar)//if the user guess right, adjust the current state.
             {
-                String temp = "";
-                for(int j = 0; j < OriginSecretWord.length(); j++)
-                {
-                    if(OriginSecretWord.charAt(j) == ch)
-                    {
-                        temp = temp + ch + " ";
-                    }
-                    else
-                    {
-                        temp = temp + CurrentState.charAt(2*j) + CurrentState.charAt(2*j+1);              
-                    }
-                }
-                CurrentState = temp;
-                System.out.println("temp state: "+temp);
-                System.out.println("current state state: " +CurrentState);
-                GuessResult=true;
-                // tempB = true;
+            	updateState(guessedChar);
                 break;
             }
             else
             {
-               // tempB = false;
             	GuessResult=false;
             }
         }
-        if(!RepeatInput(ch))
+        if(!RepeatInput(guessedChar))
         {
-            LetterGuessHistory.add(ch + "");
-
-            if(GuessResult/*tempB*/)
-            {
-                LetterLeftNum--;
-            }
-            else
-            {
-                GuessRemainingNum--;
-            }
-            return GuessResult /*tempB*/;
+            updateLetterStats(guessedChar);
+            return GuessResult;
         }
         else return GuessResult=false;
     }
     
+    public void updateLetterStats(char guessedChar)
+    {
+    	LetterGuessHistory.add(guessedChar + "");
+
+        if(GuessResult)
+        {
+            LetterLeftNum--;
+        }
+        else
+        {
+            GuessRemainingNum--;
+        }
+    }
+    
+    public void updateState(char guessedChar)
+    {
+    	 String newState = "";
+         for(int j = 0; j < secretWord.length(); j++)
+         {
+             if(secretWord.charAt(j) == guessedChar)
+             {
+                 newState = newState + guessedChar + " ";
+             }
+             else
+             {
+                 newState = newState + CurrentState.charAt(2*j) + CurrentState.charAt(2*j+1);              
+             }
+         }
+         CurrentState = newState;
+         GuessResult=true;
+    }
    
 }
     

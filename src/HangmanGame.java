@@ -6,7 +6,7 @@ import javax.swing.JLabel;
 public abstract class HangmanGame
 {
 
-    protected String OriginSecretWord = ""; //To store the secret word
+    protected String secretWord = ""; //To store the secret word
 	protected int GuessRemainingNum;// to store the number of guess for the user
 	protected int LetterLeftNum; //number of letters remaining 26 for evilHangman
 	protected String CurrentState = ""; // store the current guessing situation
@@ -20,7 +20,7 @@ public abstract class HangmanGame
      * @return the original secret word.
      */
     public String getSecretWord() {
-		return OriginSecretWord;
+		return secretWord;
 	}
     
     /**
@@ -52,21 +52,16 @@ public abstract class HangmanGame
                 //if in the evil statement, and the user guess right, 
             	// it means it is the time to turn the evil to the regular hangmam
                 result.setText("Yes!");
-                System.out.println("true true");
                 String RealSecretString = getSecretWord();
-                //System.out.println(getSecretWord());
                 int GuessRemaining = numGuessesRemaining();
                 String LetterHistory = lettersGuessed();
-                //LetterHistory+=nextLetter;
                 game=new NormalHangMan(RealSecretString, GuessRemaining,LetterHistory);//turn the evil to regular hangman
-                //IsEvil = false;
                 game.makeGuess(nextLetter);//re-value the user guess when turn to the regular hangman for the first time
                 
             }
             else
             {
                 result.setText("Yes!");
-                System.out.println("Yes nothing else");
             }
         }
         else
@@ -77,19 +72,21 @@ public abstract class HangmanGame
         label2.setText("Secret Word: "+ game.displayGameState());
         label3.setText(String.valueOf("Guesses Remaining: "+game.numGuessesRemaining()));
         if(gameOver())
-        {
-            if(isWin())
-            {
-                new GUI_Winner(displayGameState(),frame);
-            }
-            else
-            {
-                new GUI_Loser(getSecretWord(),frame);
-            }
-        }
+        	endGame(frame);
         return game;
     }
     
+    public void endGame(JFrame frame)
+    {
+    	 if(isWin())
+         {
+             new GUI_Winner(displayGameState(),frame);
+         }
+         else
+         {
+             new GUI_Loser(getSecretWord(),frame);
+         }
+    }
     /**
      * @return true if there are no more letters to be guessed and there is still at least one guess remaining
      */
@@ -135,7 +132,6 @@ public abstract class HangmanGame
      * @return a String of the current state of the secret word.
      */
     public String displayGameState() {
-    	System.out.println("displayGameState called");
 		return CurrentState;
 	}
     
@@ -154,10 +150,6 @@ public abstract class HangmanGame
 
 	public boolean RepeatInput(char c) {
 		String character = c + "";
-//		for (int i = 0; i < LetterGuessHistory.size(); i++) {
-//			if (LetterGuessHistory.get(i).equals(character)) return true;
-//		}
-//		return false;
 		return LetterGuessHistory.contains(character);
 	}
 
